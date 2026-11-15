@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AURELIA — AI Interior &amp; Renovation Studio</title>
+<meta name="description" content="AURELIA is an AI interior design and renovation studio. Scroll to watch an ordinary living room become a private home cinema.">
+<meta name="theme-color" content="#160b0a">
+<meta property="og:title" content="AURELIA — AI Interior &amp; Renovation Studio">
+<meta property="og:description" content="Every room has a second life. AI-designed, master-built interiors and home cinemas.">
+<meta property="og:image" content="img/f_9.9.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23160b0a'/%3E%3Ctext x='32' y='45' font-family='Georgia,serif' font-size='38' text-anchor='middle' fill='%23c9a46a'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Figtree:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#160b0a; --bg2:#1f100e; --card:#24130f; --line:rgba(201,164,106,.18);
+  --gold:#c9a46a; --gold2:#e8cf9f; --text:#f3e8da; --muted:#b3a291;
+  --serif:"Marcellus",Georgia,serif; --sans:"Figtree",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:300;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+.wrap{width:min(1200px,90vw);margin:0 auto}
+.eyebrow{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1.05;letter-spacing:-.01em}
+h2{font-size:clamp(2.4rem,5vw,4.2rem)}
+h2 em,h1 em{font-style:normal;color:var(--gold)}
+.btn{display:inline-flex;align-items:center;gap:.6rem;padding:1rem 1.7rem;border-radius:999px;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase;font-weight:500;transition:.35s;border:1px solid var(--gold);cursor:pointer;font-family:var(--sans)}
+.btn-gold{background:var(--gold);color:#1c0f0d;border:none;box-shadow:0 10px 40px -10px rgba(201,164,106,.6)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:0 18px 50px -12px rgba(201,164,106,.8)}
+.btn-ghost{color:var(--gold2);background:rgba(0,0,0,.25);backdrop-filter:blur(8px)}
+.btn-ghost:hover{background:rgba(201,164,106,.12)}
+
+/* NAV */
+nav{position:fixed;inset:0 0 auto 0;z-index:50;padding:1.3rem 0;transition:.4s}
+nav.solid{background:rgba(22,11,10,.82);backdrop-filter:blur(14px);padding:.7rem 0;border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--serif);font-size:1.5rem;letter-spacing:.12em;line-height:1}
+.logo small{display:block;font-family:var(--sans);font-size:.5rem;letter-spacing:.3em;color:var(--gold);margin-top:.35rem}
+.logo span{color:var(--gold)}
+.pill{display:flex;align-items:center;gap:1.6rem;padding:.4rem .4rem .4rem 1.4rem;border-radius:999px;background:rgba(22,11,10,.45);border:1px solid rgba(243,232,218,.14);backdrop-filter:blur(14px)}
+.links{display:flex;gap:1.6rem;font-size:.8rem;font-weight:500;color:var(--text)}
+.links a:hover{color:var(--gold2)}
+nav .btn{padding:.75rem 1.3rem;font-size:.72rem;letter-spacing:.04em;text-transform:none;font-weight:600}
+@media(max-width:860px){.links{display:none}.pill{padding-left:.4rem}}
+
+/* SCROLL VIDEO HERO */
+#story{position:relative;height:480vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.stage video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.04)}
+.stage .shade{position:absolute;inset:0;background:
+  linear-gradient(180deg,rgba(8,7,6,.75) 0%,rgba(8,7,6,.1) 30%,rgba(8,7,6,.1) 60%,rgba(8,7,6,.85) 100%),
+  radial-gradient(ellipse at center,transparent 45%,rgba(0,0,0,.55) 100%)}
+.chapter{position:absolute;left:max(5vw,calc((100vw - 1200px)/2));bottom:14vh;transform:translateY(30px);width:min(760px,88vw);text-align:left;opacity:0;transition:opacity .6s,transform .6s;pointer-events:none}
+.chapter.on{opacity:1;transform:none;pointer-events:auto}
+.chapter h1{font-size:clamp(2.6rem,6.2vw,5.4rem);margin:.8rem 0 1rem;text-shadow:0 4px 40px rgba(0,0,0,.6)}
+.chapter p{color:#eadccb;font-size:clamp(1rem,1.5vw,1.1rem);max-width:520px;margin:0 0 1.8rem;font-weight:400}
+.chapter .cta{display:flex;gap:1rem;flex-wrap:wrap}
+.hud{position:absolute;right:3vw;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:1.1rem;align-items:flex-end;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.hud div{display:flex;align-items:center;gap:.7rem;transition:.4s}
+.hud div{flex-direction:row-reverse}.hud div::after{content:"";width:18px;height:1px;background:currentColor;transition:.4s}
+.hud div.on{color:var(--text);font-weight:600}
+.hud div.on::after{width:44px;background:var(--gold)}
+@media(max-width:700px){.hud{display:none}}
+.bar{position:absolute;left:0;top:0;z-index:60;height:2px;background:linear-gradient(90deg,var(--gold),var(--gold2));width:0}
+.scrollcue{position:absolute;left:50%;bottom:3vh;transform:translateX(-50%);font-size:.64rem;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);display:flex;flex-direction:column;align-items:center;gap:.6rem;transition:opacity .5s}
+.scrollcue i{width:1px;height:42px;background:linear-gradient(var(--gold),transparent);animation:cue 1.8s infinite}
+@keyframes cue{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+.loader{position:absolute;top:96px;left:50%;transform:translateX(-50%);font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);transition:opacity .6s}
+.chip{display:inline-flex;align-items:center;gap:.5rem;padding:.45rem .9rem;border:1px solid var(--line);border-radius:999px;background:rgba(0,0,0,.3);backdrop-filter:blur(8px)}
+.chip b{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+
+/* STATS */
+.stats{border-bottom:1px solid var(--line);background:var(--bg)}
+.marquee{background:#f3e8da;color:#1c0f0d;overflow:hidden;padding:1.4rem 0;white-space:nowrap}
+.marquee div{display:inline-flex;gap:3rem;animation:mq 28s linear infinite;font-family:var(--serif);font-size:1.6rem}
+.marquee span::after{content:"✦";color:#8c1c13;margin-left:3rem;font-size:1rem;vertical-align:middle}
+@keyframes mq{to{transform:translateX(-50%)}}
+.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{padding:2.6rem 1rem;text-align:center;border-right:1px solid var(--line)}
+.stat:last-child{border:none}
+.stat strong{display:block;font-family:var(--serif);font-size:3.2rem;font-weight:400;color:var(--gold)}
+.stat span{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+@media(max-width:760px){.stats .wrap{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:none}.stat{border-bottom:1px solid var(--line)}}
+
+section{padding:clamp(5rem,11vw,9rem) 0}
+.head{display:flex;justify-content:space-between;align-items:end;gap:2rem;margin-bottom:3.5rem;flex-wrap:wrap}
+.head p{max-width:420px;color:var(--muted)}
+
+/* SERVICES */
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line);border-left:1px solid var(--line)}
+@media(max-width:1000px){.grid4{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.grid4{grid-template-columns:1fr}}
+.svc{position:relative;padding:2.2rem 1.8rem 2rem;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:transparent;overflow:hidden;transition:.5s}
+.svc::before{content:"";position:absolute;inset:0;background:radial-gradient(400px circle at var(--mx,50%) var(--my,0%),rgba(201,164,106,.16),transparent 40%);opacity:0;transition:.4s}
+.svc:hover{background:rgba(201,164,106,.04)}
+.svc:hover::before{opacity:1}
+.svc .n{font-family:var(--serif);font-size:1rem;color:var(--gold)}
+.svc svg{width:38px;height:38px;stroke:var(--gold2);fill:none;stroke-width:1.2;margin:1.6rem 0 1.4rem}
+.svc h3{font-size:1.75rem;margin-bottom:.7rem}
+.svc p{color:var(--muted);font-size:.93rem}
+
+/* BEFORE/AFTER */
+.ba{position:relative;border-radius:26px;overflow:hidden;aspect-ratio:16/9;border:1px solid var(--line);user-select:none;touch-action:pan-y}
+.ba img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ba .after{clip-path:inset(0 0 0 var(--p,50%))}
+.ba .handle{position:absolute;top:0;bottom:0;left:var(--p,50%);width:2px;background:var(--gold2);transform:translateX(-1px)}
+.ba .handle::after{content:"⟷";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:58px;height:58px;border-radius:50%;background:rgba(11,10,9,.7);backdrop-filter:blur(8px);border:1px solid var(--gold);display:grid;place-items:center;color:var(--gold2);font-size:1.2rem}
+.ba .tag{position:absolute;top:1.2rem;padding:.4rem .9rem;border-radius:999px;background:rgba(0,0,0,.55);font-size:.68rem;letter-spacing:.2em;text-transform:uppercase}
+.ba .t1{left:1.2rem}.ba .t2{right:1.2rem;color:var(--gold2)}
+.ba input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize}
+
+/* PROCESS */
+.process{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;position:relative}
+.steps::before{content:"";position:absolute;top:27px;left:6%;right:6%;height:1px;background:var(--line)}
+.step{padding:0 1.2rem;position:relative}
+.step .dot{width:54px;height:54px;border-radius:50%;border:1px solid var(--gold);display:grid;place-items:center;font-family:var(--serif);font-size:1.3rem;color:var(--gold2);background:var(--bg2);margin-bottom:1.6rem}
+.step h3{font-size:1.6rem;margin-bottom:.5rem}
+.step p{color:var(--muted);font-size:.92rem}
+@media(max-width:860px){.steps{grid-template-columns:1fr 1fr;row-gap:3rem}.steps::before{display:none}}
+@media(max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* GALLERY */
+.gallery{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:220px;gap:1rem}
+.g{position:relative;overflow:hidden;border-radius:20px;border:1px solid var(--line)}
+.g img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.7,.2,1)}
+.g:hover img{transform:scale(1.07)}
+.g figcaption{position:absolute;left:1.2rem;bottom:1rem;font-family:var(--serif);font-size:1.35rem;text-shadow:0 2px 20px #000}
+.g1{grid-column:span 4;grid-row:span 2}.g2{grid-column:span 2}.g3{grid-column:span 2}.g4{grid-column:span 3}.g5{grid-column:span 3}
+@media(max-width:760px){.gallery{grid-template-columns:1fr 1fr;grid-auto-rows:180px}.g1{grid-column:span 2}.g2,.g3{grid-column:span 1}.g4,.g5{grid-column:span 2}}
+
+/* AI PLANNER */
+.planner{display:grid;grid-template-columns:1.05fr 1fr;gap:3rem;align-items:center}
+@media(max-width:900px){.planner{grid-template-columns:1fr}}
+.panel{border:1px solid var(--line);border-radius:22px;padding:2rem;background:var(--bg2)}
+.opts{display:flex;flex-wrap:wrap;gap:.6rem;margin:.8rem 0 1.6rem}
+.opt{padding:.6rem 1rem;border-radius:999px;border:1px solid var(--line);font-size:.82rem;cursor:pointer;color:var(--muted);transition:.3s;background:none;font-family:var(--sans)}
+.opt.on,.opt:hover{border-color:var(--gold);color:var(--gold2);background:rgba(201,164,106,.08)}
+.panel label{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.result{margin-top:.6rem;padding:1.4rem;border-radius:16px;background:rgba(201,164,106,.06);border:1px dashed rgba(201,164,106,.35);min-height:120px;font-size:.95rem;color:#ddd3c3}
+.result b{color:var(--gold2);font-weight:500}
+.swatches{display:flex;gap:.5rem;margin-top:.9rem}
+.swatches i{width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.15)}
+
+/* CTA */
+.cta-box{position:relative;border-radius:30px;overflow:hidden;border:1px solid var(--line)}
+.cta-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.35)}
+.cta-in{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:3rem;padding:clamp(2rem,6vw,5rem)}
+@media(max-width:900px){.cta-in{grid-template-columns:1fr}}
+form{display:grid;gap:.9rem}
+form input,form select,form textarea{width:100%;padding:1rem 1.1rem;border-radius:14px;border:1px solid rgba(232,207,159,.25);background:rgba(22,11,10,.65);color:var(--text);font-family:var(--sans);font-size:.92rem;backdrop-filter:blur(8px)}
+form input:focus,form select:focus,form textarea:focus{outline:none;border-color:var(--gold)}
+.note{font-size:.85rem;color:var(--gold2);min-height:1.2em}
+
+footer{border-top:1px solid var(--line);padding:3rem 0;color:var(--muted);font-size:.85rem}
+footer .wrap{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+
+.reveal{opacity:0;transform:translateY(40px);transition:opacity 1s,transform 1s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap">
+    <a href="#story" class="logo">AURELIA<small>AI INTERIOR STUDIO</small></a>
+    <div class="pill">
+      <div class="links"><a href="#services">Services</a><a href="#transform">Before / After</a><a href="#process">Process</a><a href="#gallery">Gallery</a><a href="#ai">AI Planner</a></div>
+      <a href="#contact" class="btn btn-gold">Book a design</a>
+    </div>
+  </div>
+</nav>
+
+<!-- SCROLL-DRIVEN VIDEO -->
+<div id="story">
+  <div class="stage">
+    <video id="vid" src="scroll.mp4" muted playsinline preload="auto"></video>
+    <div class="shade"></div>
+    <div class="loader" id="loader">Loading the experience…</div>
+
+    <div class="chapter on" data-from="0" data-to="0.07">
+      <span class="chip"><b></b> AI Interior &amp; Renovation Studio</span>
+      <h1>Every room has a <em>second life.</em></h1>
+      <p>Scroll to watch an ordinary living room become a private cinema, designed by AI and built by master craftsmen.</p>
+    </div>
+    <div class="chapter" data-from="0.07" data-to="0.2">
+      <span class="eyebrow">Chapter 01 — Strip</span>
+      <h1>One snap. <em>Everything goes.</em></h1>
+      <p>Old furniture, tired wallpaper and worn floors are cleared in a single planned sequence. Nothing is wasted and nothing is guessed.</p>
+    </div>
+    <div class="chapter" data-from="0.2" data-to="0.64">
+      <span class="eyebrow">Chapter 02 — Build</span>
+      <h1>Walnut, marble &amp; <em>a sky of stars.</em></h1>
+      <p>Gold-veined stone, warm wood panelling and a fiber-optic ceiling, each piece placed to the millimetre.</p>
+    </div>
+    <div class="chapter" data-from="0.64" data-to="1.01">
+      <span class="eyebrow">Chapter 03 — Reveal</span>
+      <h1>Your private <em>cinema.</em></h1>
+      <p>Layered warm lighting, sculptural seating and a screen that becomes a window to the mountains.</p>
+      <div class="cta"><a href="#contact" class="btn btn-gold">Start your transformation</a><a href="#transform" class="btn btn-ghost">See before / after</a></div>
+    </div>
+
+    <div class="hud" id="hud"><div data-from="0" data-to="0.18">Strip</div><div data-from="0.18" data-to="0.3">Floor</div><div data-from="0.3" data-to="0.42">Marble</div><div data-from="0.42" data-to="0.5">Ceiling</div><div data-from="0.5" data-to="0.66">Furniture</div><div data-from="0.66" data-to="1.01">Light</div></div>
+    <div class="scrollcue" id="cue">See the room take shape<i></i></div>
+    <div class="bar" id="bar"></div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="wrap">
+    <div class="stat"><strong data-count="480">0</strong><span>Rooms transformed</span></div>
+    <div class="stat"><strong data-count="21">0</strong><span>Days average build</span></div>
+    <div class="stat"><strong data-count="3">0</strong><span>AI concepts per room</span></div>
+    <div class="stat"><strong data-count="12">0</strong><span>Year craft warranty</span></div>
+  </div>
+</div>
+
+<div class="marquee"><div><span>Black marble</span><span>Smoked walnut</span><span>Star ceilings</span><span>Brass details</span><span>Home cinema</span><span>Layered lighting</span><span>Black marble</span><span>Smoked walnut</span><span>Star ceilings</span><span>Brass details</span><span>Home cinema</span><span>Layered lighting</span></div></div>
+
+<section id="services">
+  <div class="wrap">
+    <div class="head reveal">
+      <div><span class="eyebrow">What we do</span><h2>Design intelligence,<br><em>handcrafted finish.</em></h2></div>
+      <p>From one AI-generated concept to the final light switch, a single studio handles the whole job.</p>
+    </div>
+    <div class="grid4">
+      <div class="svc reveal"><span class="n">01</span>
+        <svg viewBox="0 0 40 40"><path d="M20 4l3.5 9.5L33 17l-9.5 3.5L20 30l-3.5-9.5L7 17l9.5-3.5z"/><circle cx="32" cy="32" r="3"/></svg>
+        <h3>AI Concept Design</h3><p>Upload a photo and get three photoreal concepts in your style within 48 hours.</p></div>
+      <div class="svc reveal"><span class="n">02</span>
+        <svg viewBox="0 0 40 40"><rect x="5" y="9" width="30" height="22" rx="2"/><path d="M5 25h30M14 31v4M26 31v4"/></svg>
+        <h3>Full Renovation</h3><p>Demolition, flooring, wall systems, electrics and joinery, run by one project lead.</p></div>
+      <div class="svc reveal"><span class="n">03</span>
+        <svg viewBox="0 0 40 40"><ellipse cx="20" cy="12" rx="15" ry="6"/><circle cx="14" cy="12" r=".8"/><circle cx="22" cy="10" r=".8"/><circle cx="26" cy="13" r=".8"/><rect x="9" y="22" width="22" height="12" rx="1.5"/></svg>
+        <h3>Home Cinema</h3><p>Acoustic panelling, star ceilings, screen and sound, all calibrated to the room.</p></div>
+      <div class="svc reveal"><span class="n">04</span>
+        <svg viewBox="0 0 40 40"><path d="M20 5a9 9 0 0 0-5 16.5V26h10v-4.5A9 9 0 0 0 20 5z"/><path d="M16 30h8M17 34h6"/></svg>
+        <h3>Lighting Design</h3><p>Layered architectural lighting scenes that move from morning calm to movie night.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="transform" style="padding-top:0">
+  <div class="wrap">
+    <div class="head reveal">
+      <div><span class="eyebrow">Drag to compare</span><h2>Same room. <em>Same walls.</em></h2></div>
+      <p>Nothing moved but the design. Drag the handle to compare the room before and after.</p>
+    </div>
+    <div class="ba reveal" id="ba">
+      <img src="img/f_0.2.jpg" alt="Living room before renovation">
+      <img class="after" src="img/f_9.9.jpg" alt="Living room after renovation as a home cinema">
+      <span class="tag t1">Before</span><span class="tag t2">After</span>
+      <div class="handle"></div>
+      <input type="range" min="0" max="100" value="50" aria-label="Before and after slider">
+    </div>
+  </div>
+</section>
+
+<section id="process" class="process">
+  <div class="wrap">
+    <div class="head reveal">
+      <div><span class="eyebrow">How it works</span><h2>Four steps to <em>the reveal.</em></h2></div>
+    </div>
+    <div class="steps">
+      <div class="step reveal"><div class="dot">1</div><h3>Scan</h3><p>Photos or a quick phone scan give us exact room geometry.</p></div>
+      <div class="step reveal"><div class="dot">2</div><h3>Imagine</h3><p>AI produces concepts, which our designers refine with you.</p></div>
+      <div class="step reveal"><div class="dot">3</div><h3>Build</h3><p>A fixed schedule, fixed price and one point of contact.</p></div>
+      <div class="step reveal"><div class="dot">4</div><h3>Reveal</h3><p>Lights dimmed, screen on, keys in your hand.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="gallery">
+  <div class="wrap">
+    <div class="head reveal">
+      <div><span class="eyebrow">Details</span><h2>Built in <em>layers.</em></h2></div>
+      <p>Moments from the build, from bare stone to finished cinema.</p>
+    </div>
+    <div class="gallery">
+      <figure class="g g1 reveal"><img src="img/f_9.9.jpg" alt="Finished home cinema"><figcaption>The reveal</figcaption></figure>
+      <figure class="g g2 reveal"><img src="img/f_2.5.jpg" alt="Marble wall being assembled"><figcaption>Stone &amp; walnut</figcaption></figure>
+      <figure class="g g3 reveal"><img src="img/f_4.5.jpg" alt="Star ceiling and empty room"><figcaption>Star ceiling</figcaption></figure>
+      <figure class="g g4 reveal"><img src="img/f_6.0.jpg" alt="Furniture placed in the room"><figcaption>Sculptural seating</figcaption></figure>
+      <figure class="g g5 reveal"><img src="img/f_7.5.jpg" alt="Warm lighting switched on"><figcaption>Light scenes</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="ai" style="padding-top:0">
+  <div class="wrap planner">
+    <div class="reveal">
+      <span class="eyebrow">Try it now</span>
+      <h2>Your room, <em>reimagined</em> in seconds.</h2>
+      <p style="color:var(--muted);margin-top:1.2rem;max-width:460px">Pick a room, a mood and a budget. Our planner sketches a starting concept you can bring to your first consultation.</p>
+    </div>
+    <div class="panel reveal">
+      <label>Room</label>
+      <div class="opts" data-group="room"><button class="opt on">Living room</button><button class="opt">Bedroom</button><button class="opt">Kitchen</button><button class="opt">Home cinema</button></div>
+      <label>Mood</label>
+      <div class="opts" data-group="mood"><button class="opt on">Dark luxury</button><button class="opt">Warm minimal</button><button class="opt">Japandi</button><button class="opt">Modern classic</button></div>
+      <label>Budget</label>
+      <div class="opts" data-group="budget"><button class="opt">Essential</button><button class="opt on">Signature</button><button class="opt">Bespoke</button></div>
+      <button class="btn btn-gold" id="gen" style="width:100%;justify-content:center">✦ Generate concept</button>
+      <div class="result" id="result">Choose your options and press <b>Generate concept</b>.</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-box reveal">
+      <img src="img/f_7.5.jpg" alt="">
+      <div class="cta-in">
+        <div>
+          <span class="eyebrow">Free consultation</span>
+          <h2 style="margin-top:.8rem">Ready for your <em>second act?</em></h2>
+          <p style="color:#cfc6b8;margin-top:1.2rem;max-width:420px">Send a photo of your room and we'll return three AI concepts and a fixed quote.</p>
+        </div>
+        <form id="form">
+          <input required placeholder="Your name">
+          <input required type="email" placeholder="Email address">
+          <select><option>Living room</option><option>Bedroom</option><option>Kitchen</option><option>Home cinema</option><option>Whole home</option></select>
+          <textarea rows="3" placeholder="Tell us about your space"></textarea>
+          <button class="btn btn-gold" style="justify-content:center">Request my concepts</button>
+          <div class="note" id="note"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="logo" style="font-size:1.2rem">AURELIA<small>AI INTERIOR STUDIO</small></div>
+    <div>AI Interior &amp; Renovation Studio · © 2026</div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const vid = document.getElementById('vid'), story = document.getElementById('story');
+  const chapters = [...document.querySelectorAll('.chapter')], hud = [...document.querySelectorAll('#hud div')];
+  const bar = document.getElementById('bar'), cue = document.getElementById('cue'), loader = document.getElementById('loader');
+  const nav = document.getElementById('nav');
+  let target = 0, current = 0, ready = false;
+
+  // Load the whole video into memory so seeking is instant
+  fetch('scroll.mp4').then(r => r.blob()).then(b => {
+    const t = vid.currentTime; vid.src = URL.createObjectURL(b);
+    vid.addEventListener('loadeddata', () => { ready = true; vid.currentTime = t; }, { once: true });
+  }).catch(() => {});
+  vid.addEventListener('loadedmetadata', () => { ready = true; loader.style.opacity = 0; });
+  // iOS needs a play/pause to paint frames
+  const unlock = () => { vid.play().then(() => vid.pause()).catch(() => {}); window.removeEventListener('touchstart', unlock); };
+  window.addEventListener('touchstart', unlock, { passive: true });
+
+  function progress() {
+    const r = story.getBoundingClientRect();
+    const total = story.offsetHeight - innerHeight;
+    return Math.min(1, Math.max(0, -r.top / total));
+  }
+  function onScroll() {
+    const p = progress(); target = p;
+    bar.style.width = (p * 100) + '%';
+    cue.style.opacity = p > 0.02 ? 0 : 1;
+    nav.classList.toggle('solid', scrollY > story.offsetHeight - innerHeight * 1.1);
+  }
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  (function loop() {
+    current += (target - current) * 0.12;
+    const c = current;
+    chapters.forEach(ch => ch.classList.toggle('on', c >= +ch.dataset.from && c < +ch.dataset.to));
+    hud.forEach(h => h.classList.toggle('on', c >= +h.dataset.from && c < +h.dataset.to));
+    if (ready && vid.duration) {
+      const t = current * (vid.duration - 0.05);
+      if (Math.abs(vid.currentTime - t) > 0.012 && !vid.seeking) vid.currentTime = t;
+    }
+    requestAnimationFrame(loop);
+  })();
+
+  // reveal on scroll
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // counters
+  const co = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return; co.unobserve(e.target);
+    const end = +e.target.dataset.count, t0 = performance.now();
+    (function tick(now) {
+      const k = Math.min(1, (now - t0) / 1600), v = Math.round(end * (1 - Math.pow(1 - k, 3)));
+      e.target.textContent = v + (end > 100 ? '+' : ''); if (k < 1) requestAnimationFrame(tick);
+    })(t0);
+  }), { threshold: .5 });
+  document.querySelectorAll('[data-count]').forEach(el => co.observe(el));
+
+  // service card glow follows the cursor
+  document.querySelectorAll('.svc').forEach(c => c.addEventListener('pointermove', e => {
+    const r = c.getBoundingClientRect();
+    c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  }));
+
+  // before / after
+  const ba = document.getElementById('ba'), range = ba.querySelector('input');
+  range.addEventListener('input', () => ba.style.setProperty('--p', range.value + '%'));
+
+  // AI planner
+  document.querySelectorAll('.opts').forEach(g => g.addEventListener('click', e => {
+    if (!e.target.classList.contains('opt')) return;
+    g.querySelectorAll('.opt').forEach(o => o.classList.remove('on')); e.target.classList.add('on');
+  }));
+  const palettes = {
+    'Dark luxury': { mat: 'black gold-veined marble, smoked walnut and brushed brass', light: 'warm 2700K cove lighting with a fiber-optic star ceiling', sw: ['#0f0e0d', '#3a2a1c', '#c9a46a', '#b9a58c'] },
+    'Warm minimal': { mat: 'limewash plaster, white oak and boucle textiles', light: 'soft indirect wall-washers and paper lanterns', sw: ['#efe7dc', '#c9b49a', '#8d7a63', '#4a4037'] },
+    'Japandi': { mat: 'ash timber slats, washi panels and stone', light: 'low diffused light with dimmable floor lamps', sw: ['#e9e2d6', '#a89880', '#5d5346', '#2b2824'] },
+    'Modern classic': { mat: 'panelled mouldings, Calacatta marble and velvet', light: 'statement chandelier with layered picture lights', sw: ['#f3efe9', '#d8cbb6', '#6b5b4b', '#1f2a2e'] }
+  };
+  const budgets = { Essential: ['3–4 weeks', 'refresh of finishes, lighting and key furniture'], Signature: ['5–7 weeks', 'full strip-out, new floor, wall systems and custom joinery'], Bespoke: ['8–12 weeks', 'architectural rework, custom stone, automation and AV'] };
+  document.getElementById('gen').addEventListener('click', () => {
+    const pick = n => document.querySelector(`[data-group="${n}"] .on`).textContent;
+    const room = pick('room'), mood = pick('mood'), bud = pick('budget'), pl = palettes[mood], b = budgets[bud];
+    const out = document.getElementById('result');
+    out.innerHTML = '<span style="color:var(--muted)">✦ Composing your concept…</span>';
+    setTimeout(() => {
+      out.innerHTML = `<b>${mood} ${room.toLowerCase()}</b>: ${pl.mat}, finished with ${pl.light}. <br><br><b>${bud} scope</b>: ${b[1]}. Typical timeline ${b[0]}.<div class="swatches">${pl.sw.map(c => `<i style="background:${c}"></i>`).join('')}</div>`;
+    }, 900);
+  });
+
+  // form (demo, not connected)
+  document.getElementById('form').addEventListener('submit', e => {
+    e.preventDefault();
+    document.getElementById('note').textContent = 'Demo form: it is not connected to an email inbox yet, so nothing was sent.';
+  });
+})();
+</script>
+</body>
+</html>
